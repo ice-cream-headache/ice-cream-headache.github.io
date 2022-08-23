@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset='utf-8' />
+	<meta http-equiv="pragma" content="no-cache">  
+	<meta http-equiv="cache-control" content="no-cache">  
+	<meta http-equiv="expires" content="0">  
+	<title>《QQ宠物》相伴十三载</title>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'/>
+	<meta name='apple-mobile-web-app-capable' content='yes' />
+	<meta name='full-screen' content='true' />
+	<meta name='screen-orientation' content='portrait' />
+	<meta name='x5-fullscreen' content='true' />
+	<meta name='360-fullscreen' content='true' />
+	<meta http-equiv='expires' content='0' />
+	
+</head>
+<style>
+	html,body{width:100%;height:100%;background-size:100% 100%;margin:0 ;padding:0;}
+	#qrcode{width:100%;height:100%;display:none}
+
+	#soundBg,#soundBg{position:absolute;width:0;height:0;}
+	.copyright{bottom:20px;width:100%;position:absolute;font-size:8px;}
+</style>
+<script>
+	//测速统计；
+	var starttime=new Date();
+</script>
+<body>
+	<div id="qrcode"></div>
+	<audio id="soundBg"  >
+	</audio>
+	<audio id="soundEffect"   >
+	</audio>
+</body>
+
+	
+	<!-- Protobuf -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/qrcode.min.js"></script>
+	<script src="//open.mobile.qq.com/sdk/qqapi.js?_bid=152"></script>
+	
+	<!--
+	<script type="text/javascript" src="libs/bytebuffer.js"></script>
+    <script type="text/javascript" src="libs/protobuf.js"></script>
+	-->
+
+	<!--这里是layaAir的类库模块标签,核心库laya.core.js在最前-->
+	<script type="text/javascript" src="libs/min/laya.core.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.webgl.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.ani.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.filter.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.html.min.js"></script>
+	<!--
+	<script type="text/javascript" src="libs/min/laya.particle.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.tiledmap.min.js"></script>
+	-->
+	<script type="text/javascript" src="libs/min/laya.device.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.ui.min.js"></script>
+	<script type="text/javascript" src="libs/min/laya.debugtool.min.js"></script>
+	<!--自定义的js(bin/js文件夹下)文件自动添加到下面jsfile模块标签里面里，js的顺序可以手动修改，修改后保留修改的顺序，新增加的js会默认依次追加到标签里-->
+	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
+	
+
+	<!--res_version--><!--end-res_version-->
+
+	<!--启动类添加到这里-->
+	<script type="text/javascript" src="main.min.js"></script>
+
+
+</html><!--[if !IE]>|xGv00|bdc9bb23c3d4942df342fd0f9ea477fa<![endif]-->
