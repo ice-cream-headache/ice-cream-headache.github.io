@@ -1,0 +1,641 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>欢乐渔港</title>
+  <style>
+    body {
+      font-family: SimSun, Arial, Microsoft YaHei Bold, 宋体;
+    }
+  </style>
+  <script>
+    // 设置键值对到 Cookie 中，过期时间为 1 年
+    function setCookie(key, value) {
+      const now = new Date();
+      now.setFullYear(now.getFullYear() + 1); // 设置 1 年后为过期时间
+      document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(value)};expires=${now.toUTCString()};path=/`;
+    }
+
+    // 从 Cookie 中读取键值对
+    function getCookie(key) {
+      const cookies = document.cookie.split('; '); // 分割 Cookie 字符串为键值对数组
+      for (const cookie of cookies) {
+        const [cookieKey, cookieValue] = cookie.split('='); // 分割键和值
+        if (decodeURIComponent(cookieKey) === key) {
+          setCookie(key, decodeURIComponent(cookieValue));  // 更新过期时间
+          return decodeURIComponent(cookieValue); // 返回解码后的值
+        }
+      }
+      return null; // 如果找不到键，返回 null
+    }
+
+    var shop = [   //缺省值 growth:, wuli:, zhili:, meili:, limit_num:
+      {
+        "fryid": 1,
+        "avator": 1,
+        "flag": 0,
+        "name": "秋刀鱼",
+        "level": 1,
+        "price_yb": 4,
+        "quantity": 5,
+        "interval": 3600,
+        "sell_price": 1,
+      },
+      {
+        "fryid": 2,
+        "avator": 2,
+        "flag": 0,
+        "name": "金鱼",
+        "level": 0,
+        "price_yb": 2,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 1,
+      },
+      {
+        "fryid": 3,
+        "avator": 3,
+        "flag": 0,
+        "name": "热带鱼",
+        "level": 2,
+        "price_yb": 4,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 2,
+      },
+      {
+        "fryid": 4,
+        "avator": 4,
+        "flag": 1,
+        "name": "鳝鱼",
+        "level": 3,
+        "price_yb": 6,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 3,
+      },
+      {
+        "fryid": 5,
+        "avator": 5,
+        "flag": 1,
+        "name": "刺须鲶鱼",
+        "level": 4,
+        "price_yb": 8,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 4,
+      },
+      {
+        "fryid": 6,
+        "avator": 6,
+        "flag": 1,
+        "name": "紫印鱼",
+        "level": 5,
+        "price_yb": 10,
+        "quantity": 5,
+        "interval": 6 * 3600,
+        "sell_price": 5,
+      },
+      {
+        "fryid": 7,
+        "avator": 7,
+        "flag": 1,
+        "name": "水母",
+        "level": 0,
+        "qbFlag": 1,
+        "price_qb": 5,
+        "quantity": 10,
+        "interval": 4 * 3600,
+        "sell_price": 100,
+      },
+      {
+        "fryid": 8,
+        "avator": 8,
+        "flag": 0,
+        "name": "大眼鱼",
+        "level": 8,
+        "price_yb": 16,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 7,
+      },
+      {
+        "fryid": 9,
+        "avator": 9,
+        "flag": 0,
+        "name": "孔雀鱼",
+        "level": 10,
+        "price_yb": 22,
+        "quantity": 5,
+        "interval": 6 * 3600,
+        "sell_price": 9,
+      },
+      {
+        "fryid": 10,
+        "avator": 10,
+        "flag": 1,
+        "name": "河豚",
+        "level": 0,
+        "qbFlag": 1,
+        "price_qb": 1,
+        "quantity": 10,
+        "interval": 4 * 3600,
+        "sell_price": 20,
+      },
+      {
+        "fryid": 11,
+        "avator": 11,
+        "flag": 0,
+        "name": "虎皮鱼",
+        "level": 14,
+        "price_yb": 40,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 10,
+      },
+      {
+        "fryid": 12,
+        "avator": 12,
+        "flag": 1,
+        "name": "蓝晶鱼",
+        "level": 0,
+        "qbFlag": 1,
+        "price_qb": 2,
+        "quantity": 10,
+        "interval": 4 * 3600,
+        "sell_price": 40,
+      },
+      {
+        "fryid": 13,
+        "avator": 13,
+        "flag": 0,
+        "name": "闪电鱼",
+        "level": 18,
+        "price_yb": 40,
+        "quantity": 5,
+        "interval": 6 * 3600,
+        "sell_price": 13,
+      },
+      {
+        "fryid": 14,
+        "avator": 14,
+        "flag": 1,
+        "name": "天使鱼",
+        "level": 20,
+        "price_yb": 50,
+        "quantity": 5,
+        "interval": 6 * 3600,
+        "sell_price": 12,
+      },
+      {
+        "fryid": 15,
+        "avator": 15,
+        "flag": 1,
+        "name": "剑鱼",
+        "level": 12,
+        "price_yb": 27,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 9,
+      },
+      {
+        "fryid": 16,
+        "avator": 16,
+        "flag": 0,
+        "name": "石斑鱼",
+        "level": 16,
+        "price_yb": 32,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 11,
+      },
+      {
+        "fryid": 17,
+        "avator": 17,
+        "flag": 0,
+        "name": "灯泡鱼",
+        "level": 6,
+        "price_yb": 13,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 6,
+      },
+      {
+        "fryid": 18,
+        "avator": 18,
+        "flag": 1,
+        "name": "小丑鱼",
+        "level": 0,
+        "price_yb": 13,
+        "quantity": 10,
+        "interval": 4 * 3600,
+        "sell_price": 3,
+      },
+      {
+        "fryid": 19,
+        "avator": 19,
+        "flag": 1,
+        "name": "鳕鱼",
+        "level": 10,
+        "price_yb": 40,
+        "quantity": 10,
+        "interval": 4 * 3600,
+        "sell_price": 6,
+      },
+      {
+        "fryid": 20,
+        "avator": 20,
+        "flag": 1,
+        "name": "小龙虾",
+        "level": 20,
+        "price_yb": 30,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 33,
+      },
+      {
+        "fryid": 21,
+        "avator": 21,
+        "flag": 1,
+        "name": "凤尾鱼",
+        "level": 20,
+        "price_yb": 30,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 35,
+      },
+      {
+        "fryid": 22,
+        "avator": 22,
+        "flag": 1,
+        "name": "娃娃鱼",
+        "level": 15,
+        "price_yb": 28,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 38,
+      },
+      {
+        "fryid": 23,
+        "avator": 23,
+        "flag": 1,
+        "name": "大丽红尾鱼",
+        "level": 34,
+        "price_yb": 81,
+        "quantity": 5,
+        "interval": 8 * 3600,
+        "sell_price": 32,
+      },
+      {
+        "fryid": 28,
+        "avator": 28,
+        "flag": 1,
+        "name": "玉顶狮子鱼",
+        "level": 20,
+        "price_yb": 30,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 40,
+      },
+      {
+        "fryid": 29,
+        "avator": 29,
+        "flag": 1,
+        "name": "螃蟹",
+        "level": 16,
+        "price_yb": 28,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 33,
+      },
+      {
+        "fryid": 30,
+        "avator": 30,
+        "flag": 1,
+        "name": "果冻鱼",
+        "level": 0,
+        "qbFlag": 1,
+        "price_qb": 1,
+        "quantity": 5,
+        "interval": 8 * 3600,
+        "sell_price": 45,
+      },
+      {
+        "fryid": 31,
+        "avator": 31,
+        "flag": 1,
+        "name": "五色鱼",
+        "level": 50,
+        "price_yb": 120,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 60,
+      },
+      {
+        "fryid": 32,
+        "avator": 32,
+        "flag": 1,
+        "name": "霸王鱼",
+        "level": 55,
+        "price_yb": 140,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 80,
+      },
+      {
+        "fryid": 33,
+        "avator": 33,
+        "flag": 0,
+        "name": "章鱼",
+        "level": 1,
+        "price_yb": 10,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 5,
+      },
+      {
+        "fryid": 34,
+        "avator": 34,
+        "flag": 0,
+        "name": "鲟鱼",
+        "level": 1,
+        "price_yb": 10,
+        "quantity": 5,
+        "interval": 4 * 3600,
+        "sell_price": 5,
+      }
+    ];
+
+    var player;
+    window.RufflePlayer = window.RufflePlayer || {};
+
+    window.RufflePlayer.config = {
+      "allowScriptAccess": true,
+      "autoplay": "on",
+      "unmuteOverlay": "hidden",
+      "backgrounColor": null,
+      "contextMenu": false,
+      "preloader": false,
+      "quality": "best",
+      "warnOnUnsupportedContent": false,
+      "fontSources": ["Yahei.swf"], // load up fonts here
+      "defaultFonts": {
+        sans: ["微软雅黑"], // then replace them here.
+      },
+    };
+
+    window.addEventListener("load", (event) => {
+      const ruffle = window.RufflePlayer.newest();
+      player = ruffle.createPlayer();
+      player.style.width = "380px";
+      player.style.height = "300px";
+      const container = document.getElementById("container");
+      container.appendChild(player);
+      player.load("main.swf");
+    });
+
+    // 弹窗获取用户输入的名字和性别
+    function getUserInfo() {
+      const name = prompt("请输入宠物的名字：", "");
+      if (!name) {
+          alert("名字不能为空！");
+          return;
+      }
+
+      const gender = prompt("请输入你的性别（GG/MM）：", "");
+      if (!gender || (gender !== "GG" && gender !== "MM")) {
+          alert("性别输入无效！");
+          return;
+      }
+
+      // 将信息存入 Cookie
+      setCookie("username", name);
+      setCookie("gender", gender);
+      setCookie("yb", 100); //给定初始元宝
+      setCookie("harvestfish", 0); //给定初始收获鱼数
+      setCookie("fishes", JSON.stringify([])); //给定初始鱼数
+      alert(`你好，${name}！你的性别是${gender}。信息已保存到 Cookie 中。`);
+    }
+
+    // 示例用法
+    if(!getCookie("username") || !getCookie("gender")){
+      getUserInfo();
+    }
+
+    //宠物个体信息
+    window.SNS_GetSelfPetInfo = function () {
+      var petinfo = {
+        "petid": "1",
+        "qqnumber": "66666666",
+        "petName": "Q宠宝贝",
+        "masterName": getCookie("username"),
+        "level": 99,
+        "isvip": 0,
+        "grade": getCookie("gender") === "GG" ? 102 : 103,
+        "gender": 102,
+        "staus": 1,
+        "starve": 500,
+        "starveMax": 500,
+        "clean": 500,
+        "cleanMax": 500,
+        "qqsign": ""
+      };
+      return petinfo;
+    }
+
+    window.test = async function () {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      return "result";
+    }
+
+    //flash.external.ExternalInterface.call("console.log","showPageAt");
+    window.PETSendData = function (data) {
+      //console.log("PETSendData_start");
+      var data = JSON.parse(data);
+      var result = {};
+      switch (data.head.cmd) {
+        case 1:  //获取池塘信息
+          result.yb = Number(getCookie("yb"));
+          result.power = 20;
+          result.needTime = 10;  // 具体情况未知
+          result.harvestfish = Number(getCookie("harvestfish"));  // 超过1000后称号消失...
+          result.vipLv = 0;
+          result.canusecnt = 0;
+          result.allvipcnt = 1;
+          result.fishes = JSON.parse(getCookie("fishes"));
+          for(var i=0; i<result.fishes.length; i++){
+            result.fishes[i].time = Math.floor(Date.now() / 1000)-result.fishes[i].born;
+            if(result.fishes[i].time >= result.fishes[i].interval){
+              result.fishes[i].stage += 1;
+              result.fishes[i].stage = Math.min(result.fishes[i].stage, 3);
+              result.fishes[i].born = Math.floor(Date.now() / 1000);
+              result.fishes[i].time = 0;
+            }
+          }
+          /*
+          result.fishes = [
+            {
+              "id": 1,
+              "fryid": 1,
+              "name": "鱼1",
+              "stage": 1,
+              "time": 1800,
+              "interval": 1800,
+              "YB": 20,
+              "AIXIN": 10,
+              "growth": 100,
+              "strong": 50,
+              "iq": 80,
+              "charm": 30,
+              "quantity": 10,
+              "costyb": 10,
+              "basequantity": 5,
+              "avatar": "1|1b"
+            },
+            {
+              "id": 2,
+              "fryid": 2,
+              "name": "鱼2",
+              "stage": 2,
+              "time": 3600,
+              "growth": 200,
+              "strong": 70,
+              "iq": 90,
+              "charm": 40,
+              "interval": 3600,
+              "quantity": 15,
+              "YB": 30,
+              "costyb": 15,
+              "basequantity": 8,
+              "avatar": "2|2b"
+            }];*/
+          break;
+        case 2:  //使用饲料
+          result.id = data.data.id;
+          result.result = 1;
+          result.msg = "无法通过充值购买饲料！";
+          break;
+        case 3:  //获取商店信息
+          result.fries = shop;
+          result.totalpage = 1;  //告知请求几次
+          break;
+        case 4:  //逐个购买鱼苗
+          if (data.data.paytype == 1) {   //元宝购买
+            let id = data.data.fryid;
+            if(id >=28 ){
+              id -= 4;
+            }
+            let fish = shop[id - 1];
+            var yb = Number(getCookie("yb"));
+            let PondFish = getCookie("fishes");
+            PondFish = JSON.parse(PondFish);
+            if(yb < fish.price_yb || PondFish.length >= 3){
+              result.result = 1;
+              //result.msg = "元宝不足!";
+            }
+            else{
+              result.result = 0;
+              PondFish.push({
+                "id": PondFish.length + 1,
+                "fryid": fish.fryid,
+                "name": fish.name,
+                "stage": 1,
+                "time": 0,
+                "interval": fish.interval,
+                "costyb": fish.price_yb,
+                "YB": fish.sell_price,
+                "quantity": fish.quantity,
+                "basequantity": fish.quantity,
+                "avatar": fish.avator,
+                "AIXIN": 0,
+                "growth": 0,
+                "strong": 0,
+                "iq": 0,
+                "charm": 0,
+                "born":Math.floor(Date.now() / 1000),
+              });
+              setCookie("fishes", JSON.stringify(PondFish));
+              setCookie("yb", Number(yb) - Number(fish.price_yb));
+            }
+          }
+          else {  // paytype == 2  Q币购买, paytype == 3 Q点购买
+            result.result = 1;
+          }
+          /*
+          result.result = 1;  元宝/Q币不足
+          result.result = 2;  池塘已满
+
+          result.result = 3;  自定义购买失败消息
+          result.msg = "购买失败!";
+          */
+          break;
+        case 5:  //逐个收获
+          var yb = getCookie("yb");
+          let PondFish = getCookie("fishes");
+          PondFish = JSON.parse(PondFish);
+          let fish = null;
+          for(var i = 0; i<PondFish.length;++i){
+            if(PondFish[i].id == data.data.id){
+              fish = PondFish[i];
+              break;
+            }
+          }
+          if(fish.stage == 3){
+            result.yb = Number(fish.YB)*Number(fish.quantity);
+          }
+          else{
+            result.yb = Number(fish.costyb)/2;
+          }
+          result.yb = Math.floor(result.yb);
+          setCookie("yb", Number(yb) + Number(result.yb));
+          PondFish.splice(data.data.id - 1, 1);
+          
+          for(var i = 0; i<PondFish.length;++i){
+            PondFish[i].id = i+1;
+          }
+          setCookie("fishes", JSON.stringify(PondFish));
+          setCookie("harvestfish", Number(getCookie("harvestfish")) + 1);
+          result.result = 0;
+          result.msg = "收获成功!";
+
+          result.growth = 0;
+          result.strong = 0;
+          result.charm = 0;
+          result.iq = 0;
+          break;
+        case 8:  //一键收获
+          return;
+          break;
+        default:
+          return;
+          break;
+      }
+      var ResultData = {
+        data: result,
+        head: data.head
+      }
+      player.PETEventOnReceived(JSON.stringify(ResultData));
+      //console.log("PETSendData_end");
+    }
+
+
+  </script>
+  <script src="./ruffle/ruffle.js"></script>
+
+<body>
+  <div>
+    <div id="container"></div>
+  </div>
+  <script>
+    var time = setInterval(function () {
+      if (document.querySelector("#container > ruffle-player").Fish_openGame != undefined) {
+        clearInterval(time);
+        document.querySelector("#container > ruffle-player").Fish_openGame(true);
+      }
+    }, 1000);
+
+
+  </script>
+</body>
+
+</html>
